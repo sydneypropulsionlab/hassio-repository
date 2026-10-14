@@ -1,7 +1,7 @@
 {
-    "api": "https://host_to_be_replaced/api/v1/",
-    "eventsUrl": "wss://host_to_be_replaced/events",
-    "baseHref": "base_url_to_be_replaced",
+    "api": "proto_http_placeholder://host_to_be_replaced/ingress_path_placeholder/api/v1/",
+    "eventsUrl": "proto_ws_placeholder://host_to_be_replaced/ingress_path_placeholder/events",
+    "baseHref": "/ingress_path_placeholder/",
     "eventsMaxMissedHeartbeats": 5,
     "eventsHeartbeatIntervalTime": 60000,
     "eventsReconnectTryInterval": 10000,

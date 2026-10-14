@@ -8,10 +8,14 @@ PYTHONUNBUFFERED=true DJANGO_SETTINGS_MODULE=settings.config /home/taiga/taiga-b
 
 # Start taiga protected (which serves user-uploaded media securely)
 cd /home/taiga/taiga-protected
-PYTHONUNBUFFERED=true /home/taiga/taiga-protected/.venv/bin/gunicorn --workers 4 --timeout 60 --log-level=info --access-logfile - --bind 0.0.0.0:8003 server:app &
+# The baked-in .env holds a literal "$TAIGA_SECRET_KEY"; real env vars take precedence
+SECRET_KEY="$TAIGA_SECRET_KEY" PYTHONUNBUFFERED=true /home/taiga/taiga-protected/.venv/bin/gunicorn --workers 4 --timeout 60 --log-level=info --access-logfile - --bind 0.0.0.0:8003 server:app &
 
 # Start the events service which keeps each open webpage in sync
 cd /home/taiga/taiga-events
+# Override the image's .env, which points at "local-rabbitmq" with an unexpanded secret
+RABBITMQ_URL="amqp://taiga:$RABBITMQ_DEFAULT_PASS@$RABBITMQ_HOST:5672/$RABBITMQ_VHOST" \
+SECRET="$TAIGA_SECRET_KEY" \
 npm run start:production &
 
 wait

@@ -10,6 +10,7 @@ An add-on to allow the agile Taiga project manager to be deployed on home assist
 - Allow use of a 3rd-party postgres server (must be <= 13.9)
 - Automatic backups
 - Access the WebUI via the nabucasa remote URL (`https://<uid>.ui.nabu.casa/...`)
+- Direct access on its own port (default `8081`), e.g. behind a reverse proxy on its own domain
 
 
 ## What still needs to be done
@@ -38,7 +39,7 @@ hass in a container.
 ### Add the repository
 
 1. Go to Settings -> Addons -> Addon Store -> Kebab (3 dots) menu -> Repositories
-2. Add this repository: https://github.com/edmundhighcock/hassio-repository
+2. Add this repository: https://github.com/sydneypropulsionlab/hassio-repository
 3. Go to Settings -> Addons -> Addon Store -> Kebab (3 dots) menu -> Check for Updates
 4. Refresh the page
 
@@ -70,6 +71,27 @@ _Important Note: You can change the RabbitMQ and Postgres passwords at any time 
 5. Start Taiga
 6. **Important**. Now go to the Taiga web ui, where you will already be logged in as `taiga_admin` (with password "pleasechangeme"). Immediately go to the Taiga settings (click the logo in the top right corner) and change the password to secure your installation.
 
+## Direct access / own domain
+
+As well as through Home Assistant ingress, Taiga is served on port `8081` of
+your Home Assistant host (change or disable it under the add-on's
+**Network** section). Both work at the same time.
+
+To serve it on its own domain, e.g. `https://taiga.example.com`, with Nginx
+Proxy Manager (optionally behind a Cloudflare Tunnel):
+
+1. Add a Proxy Host for `taiga.example.com` forwarding to `http://<hass ip>:8081`.
+2. Enable **Websockets Support** (needed for live updates).
+3. Set up SSL as you do for your other hosts.
+
+The add-on detects whether the browser used `https` from the `CF-Visitor` /
+`X-Forwarded-Proto` headers and generates matching `https://` and `wss://`
+URLs.
+
+Port `8081` has no Home Assistant authentication in front of it, only
+Taiga's own login, so consider disabling public registration once your
+accounts are set up.
+
 ## Administration
 
 When you install Taiga there is one superuser account created. It is probably not ideal to use that for your day-to-day work. You can create an ordinary user account, as well as carry out other admin tasks, in the admin section.
@@ -92,7 +114,7 @@ If the worst happens and you need to restore the addon from scratch, you can
 1. download your home assistant backup,
 2. open up the tarball,
 3. find the shared folder tarball, and
-4. open the tarball and find the `9547a9e0-taiga` folder.
+4. open the tarball and find the `<hash>-taiga` folder.
 5. For each project json file, you can create a new project in taiga, and select the "Import Project" option, then upload the json file to recreate your project.
 
 #### Changing the update frequency

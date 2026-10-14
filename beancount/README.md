@@ -20,7 +20,7 @@ hass in a container.
 ### Add the repository
 
 1. Go to Settings -> Addons -> Addon Store -> Kebab (3 dots) menu -> Repositories
-2. Add this repository: https://github.com/edmundhighcock/hassio-repository
+2. Add this repository: https://github.com/sydneypropulsionlab/hassio-repository
 3. Go to Settings -> Addons -> Addon Store -> Kebab (3 dots) menu -> Check for Updates
 4. Refresh the page
 

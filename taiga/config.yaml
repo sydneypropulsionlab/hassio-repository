@@ -1,6 +1,6 @@
 name: "Taiga Project Manager"
 description: "Taiga Agile Project Manager"
-version: "6.0.10-p7"
+version: "6.0.10-p9"
 slug: "taiga"
 init: false
 arch:
@@ -13,8 +13,9 @@ options:
   minutes_between_backups: 61
   rabbitmq_advanced_options:
     virtual_host: "taiga"
+    host: "auto"
   postgres_advanced_options:
-    host: '9547a9e0-taiga-postgres'
+    host: "auto"
     user: 'taiga'
     database: 'taiga'
 schema:
@@ -24,6 +25,7 @@ schema:
   minutes_between_backups: "float"
   rabbitmq_advanced_options:
     virtual_host: "str"
+    host: "str?"
   postgres_advanced_options: 
     host: 'str'
     user: 'str'
@@ -31,6 +33,10 @@ schema:
 ingress: 8099
 ingress_port: 8099
 ingress_entry: "/discover"
+ports:
+  8081/tcp: 8081
+ports_description:
+  8081/tcp: "Direct web access (e.g. for a reverse proxy). Leave blank to disable."
 hassio_api: true
 panel_icon: "mdi:octagram"
 map:

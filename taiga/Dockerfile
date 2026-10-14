@@ -1,4 +1,4 @@
-# See the repository edmundhighcock/hass-taiga
+# See the repository sydneypropulsionlab/hass-taiga
 # in the folder build to see what is in this image
 ARG BUILD_FROM
 FROM $BUILD_FROM
@@ -18,6 +18,7 @@ COPY init_postgres.sh /init_postgres.sh
 COPY backup.sh /backup.sh
 COPY taiga.sql /taiga.sql
 COPY nginx.conf /etc/nginx/conf.d/taiga.conf
+COPY taiga-locations.conf /etc/nginx/taiga-locations.conf
 RUN chown taiga /migrate.sh /run.sh /init_postgres.sh /taiga.sql /backup.sh
 CMD bash /start.sh
 # CMD sleep 200d

@@ -1,5 +1,21 @@
 # Changelog
 
+## [6.0.10-p9] - 2026-10-14
+
+### Fixed
+
+- Postgres and RabbitMQ hostnames were hard-coded to the upstream repository's
+  `9547a9e0-` prefix, so the add-on couldn't reach them when installed from a
+  fork. They are now derived automatically (`host: auto`).
+- taiga-events now uses the configured RabbitMQ connection and secret key.
+
+## [6.0.10-p8] - 2026-10-14
+
+### Added
+
+- Direct web access on port 8081 alongside ingress, so Taiga can sit behind a
+  reverse proxy (e.g. Nginx Proxy Manager / Cloudflare Tunnel) on its own domain.
+
 ## [6.0.10-p5] - 2023-02-12
 
 ### Fixed
