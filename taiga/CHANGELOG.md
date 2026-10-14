@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.0.10-p10] - 2026-10-14
+
+### Fixed
+
+- Redirects (e.g. `/admin` → `/admin/`, admin login) pointed at
+  `http://<host>:8081/...` when Taiga was reached through a reverse proxy.
+  Redirects are now relative.
+
 ## [6.0.10-p9] - 2026-10-14
 
 ### Fixed
