@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.0.10-p11] - 2026-10-14
+
+### Fixed
+
+- Django admin CSS/JS and media (attachments, avatars) links were malformed
+  (`https:/host/...`), so the admin page loaded unstyled.
+
 ## [6.0.10-p10] - 2026-10-14
 
 ### Fixed

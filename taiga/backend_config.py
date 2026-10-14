@@ -47,12 +47,15 @@ DEFAULT_PROJECT_SLUG_PREFIX = False
 #########################################
 
 # MEDIA_ROOT = '/home/taiga/media'
-MEDIA_URL = f"{ TAIGA_URL }/media/"
+# Path-only, not TAIGA_URL: Django only leaves these alone when they start
+# with http://, https:// or /, and the placeholder scheme above doesn't, so it
+# would mangle them into e.g. "https:/host/static/".
+MEDIA_URL = f"{ FORCE_SCRIPT_NAME }/media/"
 DEFAULT_FILE_STORAGE = "taiga_contrib_protected.storage.ProtectedFileSystemStorage"
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
 
 # STATIC_ROOT = '/home/taiga/static'
-STATIC_URL = f"{ TAIGA_URL }/static/"
+STATIC_URL = f"{ FORCE_SCRIPT_NAME }/static/"
 
 #########################################
 ## EMAIL
