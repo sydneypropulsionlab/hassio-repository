@@ -1,6 +1,6 @@
 name: "Fava + Beancount Accounting"
 description: "Fava UI for Beancount Double-Entry Accounting Software (v2)"
-version: "2.3.5-p13"
+version: "2.3.5-p14"
 slug: "fava_2"
 init: false
 arch:
