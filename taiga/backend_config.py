@@ -28,8 +28,11 @@ SECRET_KEY = os.environ["TAIGA_SECRET_KEY"]
 
 # Placeholders, rewritten by nginx per request so the same backend serves both
 # Home Assistant ingress and direct port access (see taiga-locations.conf)
-TAIGA_SITES_SCHEME = "proto_http_placeholder"
-TAIGA_SITES_DOMAIN = "host_to_be_replaced"
+# The scheme must be a real "http": Taiga and Python only treat URLs starting
+# with http as absolute, and otherwise mangle media URLs (e.g. profile photos).
+# nginx swaps "http://backend_host_placeholder" for the browser's scheme+host.
+TAIGA_SITES_SCHEME = "http"
+TAIGA_SITES_DOMAIN = "backend_host_placeholder"
 FORCE_SCRIPT_NAME = "/ingress_path_placeholder"
 
 TAIGA_URL = f"{ TAIGA_SITES_SCHEME }://{ TAIGA_SITES_DOMAIN }{ FORCE_SCRIPT_NAME }"

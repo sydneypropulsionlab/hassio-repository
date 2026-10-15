@@ -1,5 +1,13 @@
 # Changelog
 
+## [6.0.10-p14] - 2026-10-15
+
+### Fixed
+
+- Profile photos and project logos showed as broken images. Their URLs were
+  mangled because the backend's placeholder scheme wasn't `http`, so Taiga
+  didn't treat them as absolute.
+
 ## [6.0.10-p13] - 2026-10-15
 
 ### Added
