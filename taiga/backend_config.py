@@ -61,16 +61,24 @@ STATIC_URL = f"{ FORCE_SCRIPT_NAME }/static/"
 ## EMAIL
 #########################################
 # https://docs.djangoproject.com/en/3.1/topics/email/
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# Set from the add-on's smtp options by start.sh. Without a host, emails are
+# printed to the add-on log instead of sent, so features that email (e.g.
+# adding project members) still work.
+EMAIL_HOST = os.environ.get("EMAIL_HOST", "")
+if EMAIL_HOST:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_PORT = int(os.environ.get("EMAIL_PORT") or 587)
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+# Django rejects TLS and SSL both being on
+EMAIL_USE_TLS = os.environ.get("EMAIL_SECURITY", "starttls") == "starttls"
+EMAIL_USE_SSL = os.environ.get("EMAIL_SECURITY", "starttls") == "ssl"
+# Emails are sent during the web request, so don't let a dead server hang it
+EMAIL_TIMEOUT = 15
+DEFAULT_FROM_EMAIL = os.environ.get("EMAIL_FROM") or EMAIL_HOST_USER or "taiga@localhost"
 CHANGE_NOTIFICATIONS_MIN_INTERVAL = 120  # seconds
-
-DEFAULT_FROM_EMAIL = 'changeme@example.com'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'user'
-EMAIL_HOST_PASSWORD = 'password'
 
 RABBITMQ_PASSWORD=os.environ['RABBITMQ_DEFAULT_PASS']
 RABBITMQ_VHOST=os.environ['RABBITMQ_VHOST']
@@ -130,7 +138,7 @@ CELERY_TASK_DEFAULT_ROUTING_KEY = 'task.default'
 ## TELEMETRY
 #########################################
 
-ENABLE_TELEMETRY = True
+ENABLE_TELEMETRY = False
 
 #########################################
 ##  REGISTRATION

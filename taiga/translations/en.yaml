@@ -1,0 +1,24 @@
+configuration:
+  smtp:
+    name: Email (SMTP)
+    description: >-
+      Outgoing mail for invitations and notifications. Leave the host empty to
+      print emails to the add-on log instead of sending them.
+    fields:
+      host:
+        name: SMTP host
+        description: e.g. smtp.gmail.com. Empty disables sending.
+      port:
+        name: Port
+        description: Usually 587 for STARTTLS or 465 for SSL.
+      security:
+        name: Security
+        description: starttls (port 587), ssl (port 465) or none.
+      username:
+        name: Username
+      password:
+        name: Password
+        description: For Gmail, use an app password.
+      from_email:
+        name: From address
+        description: Defaults to the username.

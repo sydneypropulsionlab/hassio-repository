@@ -19,7 +19,6 @@ An add-on to allow the agile Taiga project manager to be deployed on home assist
 - Integration with Home Assistant user accounts
 - Use Home Assistant ubuntu base images + `bashio`
 - Shrink addon installation size (currently 2GB)
-- Configuring email notifications
 - Accessing the WebUI via the local URL (`https://homeassistant.local/...`)
 
 ## System requirements
@@ -70,6 +69,19 @@ _Important Note: You can change the RabbitMQ and Postgres passwords at any time 
 4. Select "Show in Sidebar" if desired.
 5. Start Taiga
 6. **Important**. Now go to the Taiga web ui, where you will already be logged in as `taiga_admin` (with password "pleasechangeme"). Immediately go to the Taiga settings (click the logo in the top right corner) and change the password to secure your installation.
+
+## Email
+
+Taiga emails people when they're added to a project and for change
+notifications. Set this up in the add-on's **Configuration** page under
+**Email (SMTP)**: host, port, security (`starttls` for port 587, `ssl` for
+465), username, password and optionally a from address. Restart the add-on
+afterwards.
+
+With no SMTP host set, emails are printed to the add-on log instead of sent.
+Adding existing users to projects still works. To bring in someone new without
+email, create their account in the admin section first, then add them to the
+project.
 
 ## Direct access / own domain
 

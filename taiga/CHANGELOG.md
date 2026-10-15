@@ -1,5 +1,18 @@
 # Changelog
 
+## [6.0.10-p13] - 2026-10-15
+
+### Added
+
+- SMTP settings (host, port, security, username, password, from address) in
+  the add-on configuration.
+
+### Fixed
+
+- Adding members to a project failed because the built-in email settings were
+  invalid (TLS and SSL both on, pointing at `localhost`). Without an SMTP host,
+  emails are now printed to the add-on log instead.
+
 ## [6.0.10-p12] - 2026-10-15
 
 ### Changed

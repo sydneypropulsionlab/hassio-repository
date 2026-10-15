@@ -1,6 +1,6 @@
 name: "Taiga Project Manager"
 description: "Taiga Agile Project Manager"
-version: "6.0.10-p12"
+version: "6.0.10-p13"
 slug: "taiga"
 init: false
 arch:
@@ -18,6 +18,9 @@ options:
     host: "auto"
     user: 'taiga'
     database: 'taiga'
+  smtp:
+    port: 587
+    security: "starttls"
 schema:
   taiga_secret_key: "password"
   rabbitmq_password: "password"
@@ -30,6 +33,13 @@ schema:
     host: 'str'
     user: 'str'
     database: 'str'
+  smtp:
+    host: "str?"
+    port: "port"
+    security: "list(starttls|ssl|none)"
+    username: "str?"
+    password: "password?"
+    from_email: "email?"
 ingress: 8099
 ingress_port: 8099
 ingress_entry: "/discover"

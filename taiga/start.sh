@@ -44,6 +44,18 @@ export POSTGRES_USER=$(cat /data/options.json | jq -r .postgres_advanced_options
 export POSTGRES_DB=$(cat /data/options.json | jq -r .postgres_advanced_options.database) 
 export RABBITMQ_VHOST=$(cat /data/options.json | jq -r .rabbitmq_advanced_options.virtual_host) 
 export MINUTES_BETWEEN_BACKUPS=$(cat /data/options.json | jq -r .minutes_between_backups) 
+# Outgoing email. With no SMTP host, emails are written to the log instead.
+export EMAIL_HOST=$(jq -r '.smtp.host // empty' /data/options.json)
+export EMAIL_PORT=$(jq -r '.smtp.port // 587' /data/options.json)
+export EMAIL_SECURITY=$(jq -r '.smtp.security // "starttls"' /data/options.json)
+export EMAIL_HOST_USER=$(jq -r '.smtp.username // empty' /data/options.json)
+export EMAIL_HOST_PASSWORD=$(jq -r '.smtp.password // empty' /data/options.json)
+export EMAIL_FROM=$(jq -r '.smtp.from_email // empty' /data/options.json)
+if [[ -n $EMAIL_HOST ]]; then
+  echo "Sending email via $EMAIL_HOST:$EMAIL_PORT ($EMAIL_SECURITY)"
+else
+  echo "No SMTP host configured: emails will be printed to the log, not sent"
+fi
 
 SLUG=$(echo $HOSTNAME | sed -e 's/-/_/g')
 ADDON_INFO=$(curl  -H "Authorization: Bearer $SUPERVISOR_TOKEN" supervisor/addons/$SLUG/info)
@@ -55,7 +67,7 @@ sed -i 's,base href="/",base href="/ingress_path_placeholder/",' /home/taiga/tai
 echo "set \$taiga_path \"$INGRESS_ENTRY\";" > /etc/nginx/taiga-ingress-path.conf
 
 # ENVIRONMENT="INGRESS_ENTRY='$INGRESS_ENTRY' TAIGA_SECRET_KEY=$TAIGA_SECRET_KEY RABBITMQ_DEFAULT_PASS='$RABBITMQ_DEFAULT_PASS'"
-VARIABLES="TAIGA_SECRET_KEY,INGRESS_ENTRY,RABBITMQ_DEFAULT_PASS,RABBITMQ_HOST,POSTGRES_PASSWORD,POSTGRES_HOST,POSTGRES_USER,POSTGRES_DB,RABBITMQ_VHOST,MINUTES_BETWEEN_BACKUPS"
+VARIABLES="TAIGA_SECRET_KEY,INGRESS_ENTRY,RABBITMQ_DEFAULT_PASS,RABBITMQ_HOST,POSTGRES_PASSWORD,POSTGRES_HOST,POSTGRES_USER,POSTGRES_DB,RABBITMQ_VHOST,MINUTES_BETWEEN_BACKUPS,EMAIL_HOST,EMAIL_PORT,EMAIL_SECURITY,EMAIL_HOST_USER,EMAIL_HOST_PASSWORD,EMAIL_FROM"
 # Carry out db migrations
 su -w $VARIABLES  - taiga -c "bash -l /migrate.sh"
 
