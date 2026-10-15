@@ -1,5 +1,25 @@
 # Changelog
 
+## [6.0.10-p16] - 2026-10-15
+
+### Added
+
+- PDFs and images (PNG, JPEG, GIF, WebP) attached to items open in a new
+  browser tab instead of downloading. Other files, including SVG and HTML,
+  still download.
+
+### Fixed
+
+- Attachments and profile photos returned 404 in 6.0.10-p15, which served
+  uploaded files from the wrong folder (`/taiga/media/`).
+
+## [6.0.10-p15] - 2026-10-15
+
+### Changed
+
+- Attempted to open PDFs and images inline. This broke file serving; use
+  6.0.10-p16.
+
 ## [6.0.10-p14] - 2026-10-15
 
 ### Fixed
