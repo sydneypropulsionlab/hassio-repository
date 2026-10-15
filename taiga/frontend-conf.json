@@ -13,7 +13,7 @@
     ],
     "defaultTheme": "taiga",
     "defaultLoginEnabled": true,
-    "publicRegisterEnabled": true,
+    "publicRegisterEnabled": false,
     "feedbackEnabled": true,
     "supportUrl": "https://community.taiga.io/",
     "privacyPolicyUrl": null,

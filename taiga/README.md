@@ -89,8 +89,8 @@ The add-on detects whether the browser used `https` from the `CF-Visitor` /
 URLs.
 
 Port `8081` has no Home Assistant authentication in front of it, only
-Taiga's own login, so consider disabling public registration once your
-accounts are set up.
+Taiga's own login. Public sign-up is disabled, so new users must be invited to
+a project or created in the admin section.
 
 ## Administration
 

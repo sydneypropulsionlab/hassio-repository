@@ -136,7 +136,7 @@ ENABLE_TELEMETRY = True
 ##  REGISTRATION
 #########################################
 
-PUBLIC_REGISTER_ENABLED = True
+PUBLIC_REGISTER_ENABLED = False
 
 #########################################
 ## THROTTLING

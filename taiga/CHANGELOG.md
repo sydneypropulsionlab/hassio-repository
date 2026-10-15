@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.0.10-p12] - 2026-10-15
+
+### Changed
+
+- Public sign-up is disabled. New users join by invitation from a project, or
+  are created by an admin at `/admin/`.
+
 ## [6.0.10-p11] - 2026-10-14
 
 ### Fixed
